@@ -1,5 +1,4 @@
 <?php
-require_once "config.php";
 /**
  *    微信公众平台PHP-SDK, 官方API部分
  * @author  dodge <dodgepudding@gmail.com>
@@ -1281,16 +1280,18 @@ class Wechat
             $this->access_token = $rs;
             return $rs;
         }
+
+        $access_token_retrieval_url = \think\facade\Config::get('app.access_token_retrieval_url');
         $result = $this->http_get($access_token_retrieval_url);
         if ($result) {
-            $json = json_decode($result, true);
-            if (!$json || !isset($json['token'])) {
-                $this->errCode = 0;
+            $json = json_decode($result);
+            if (!$json || !isset($json->token)) {
+                $this->errCode = -1;
                 $this->errMsg = $result;
                 return false;
             }
-            $this->access_token = $json['token'];
-            $expire = intval($json['expire_time']) - time();
+            $this->access_token = $json->token;
+            $expire = intval($json->expire_time) - time();
             $this->setCache($authname, $this->access_token, $expire - 100);
             return $this->access_token;
         }
