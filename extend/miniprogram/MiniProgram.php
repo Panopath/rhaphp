@@ -63,9 +63,9 @@ class MiniProgram
         } else {
             $access_token_retrieval_url = Container::get('config')->get('access_token_retrieval_url');
             $result = json_decode(self::httpGet($access_token_retrieval_url), true);
-            if ($result->token) {
-                self::setCache($cacheName, $result->token, $result->expire_time - time());
-                return $this->access_token = $result->token;
+            if ($result['token']) {
+                self::setCache($cacheName, $result['token'], $result['expire_time'] - time());
+                return $this->access_token = $result['token'];
             } else {
                 return false;
             }
