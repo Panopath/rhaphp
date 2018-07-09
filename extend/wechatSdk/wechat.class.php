@@ -1,5 +1,5 @@
 <?php
-
+require_once "config.php";
 /**
  *    微信公众平台PHP-SDK, 官方API部分
  * @author  dodge <dodgepudding@gmail.com>
@@ -1267,6 +1267,7 @@ class Wechat
      */
     public function checkAuth($appid = '', $appsecret = '', $token = '')
     {
+        global $access_token_retrieval_url;
         if (!$appid || !$appsecret) {
             $appid = $this->appid;
             $appsecret = $this->appsecret;
@@ -1280,16 +1281,16 @@ class Wechat
             $this->access_token = $rs;
             return $rs;
         }
-        $result = $this->http_get(self::API_URL_PREFIX . self::AUTH_URL . 'appid=' . $appid . '&secret=' . $appsecret);
+        $result = $this->http_get($access_token_retrieval_url);
         if ($result) {
             $json = json_decode($result, true);
-            if (!$json || isset($json['errcode'])) {
-                $this->errCode = $json['errcode'];
-                $this->errMsg = $json['errmsg'];
+            if (!$json || !isset($json['token'])) {
+                $this->errCode = 0;
+                $this->errMsg = $result;
                 return false;
             }
-            $this->access_token = $json['access_token'];
-            $expire = $json['expires_in'] ? intval($json['expires_in']) - 100 : 7100;
+            $this->access_token = $json['token'];
+            $expire = intval($json['expire_time']) - time();
             $this->setCache($authname, $this->access_token, $expire - 100);
             return $this->access_token;
         }

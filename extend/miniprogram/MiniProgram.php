@@ -8,6 +8,9 @@
 // +----------------------------------------------------------------------
 
 namespace miniprogram;
+
+use think\Container;
+
 class MiniProgram
 {
     private $appid;
@@ -54,15 +57,15 @@ class MiniProgram
      */
     public function getAccessToken()
     {
-        $cahceName = $this->appid . 'access_token';
-        if ($this->access_token = self::getCache($cahceName)) {
+        $cacheName = $this->appid . 'access_token';
+        if ($this->access_token = self::getCache($cacheName)) {
             return $this->access_token;
         } else {
-            $url = self::API_BASE_URL . 'cgi-bin/token?grant_type=client_credential&appid=' . $this->appid . '&secret=' . $this->appsecret . '';
-            $result = self::checkErrorCode(json_decode(self::httpGet($url), true));
-            if ($result) {
-                self::setCache($cahceName, $result['access_token'], $result['expires_in']);
-                return $this->access_token = $result['access_token'];
+            $access_token_retrieval_url = Container::get('config')->get('access_token_retrieval_url');
+            $result = json_decode(self::httpGet($access_token_retrieval_url), true);
+            if ($result->token) {
+                self::setCache($cacheName, $result->token, $result->expire_time - time());
+                return $this->access_token = $result->token;
             } else {
                 return false;
             }
