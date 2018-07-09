@@ -58,7 +58,7 @@ class Base extends \app\admin\controller\Base
             'token' => $this->mpInfo['valid_token'],
             'encodingaeskey' => $this->mpInfo['encodingaeskey']
         );
-        $this->getAddonForMenu();
+//        $this->getAddonForMenu();
        // $this->mpListByMenu();
         $this->assign('mpInfo',session('mpInfo'));
         $this->assign('mid',$this->mid);

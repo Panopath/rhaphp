@@ -22,19 +22,6 @@
     <div class="wrap">
         <ul>
             <li>你好，<a class="name" href="" id="username">{$admin.admin_name}</a>
-                {notempty name="mpInfo"}
-                <span class="quit">当前公众号：<a href="{:url('mp/index/index',['mid'=>$mpInfo['id']])}">{$mpInfo.name}</a><i style="font-size: 9px; margin-left: 5px;">{:getMpType($mpInfo['type'])}</i>
-                    {eq name="$mpInfo.valid_status" value="1"}
-                    <i style="font-size: 9px; margin-left: 5px;">已接入</i>
-                    {else/}
-                    <i style="font-size: 9px; margin-left: 5px; color: red">未接入</i>
-                    {/eq}
-                </span>
-                <a class="quit" href="{:url('mp/index/mplist')}">切换公众号</a>
-                <a href="{:url('mp/Message/messagelist')}"><i class="layui-icon">&#xe645;</i>用户消息<span class="num-feed rhaphp-msg-user show" style="display: none;">0</span></a>
-                {/notempty}
-
-                <a href="javascript:;" onclick="cacheClear()"><i class="layui-icon">&#xe640;</i>清空缓存</a>
                 <a class="quit" href="{:url('admin/Login/out')}"><i class="rha-icon">&#xe696;</i>退出</a>
             </li>
         </ul>
@@ -43,7 +30,7 @@
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <h1 class="main-logo"><a href="{:url('mp/mp/index')}">RhaPHP</a></h1>
+            <h1 class="main-logo"><a href="{:url('mp/mp/index')}">Panopath 微信补充后台<br/>(Powered by RhaPHP)</a></h1>
             <div class="sub-logo"></div>
         </div>
         <div class="nav">
@@ -91,6 +78,8 @@
         <a href="https://www.rhaphp.com" target="_blank">官方社区</a>
         <i class="vs">|</i>
         Powered By RhaPHP{$copy.version} 二哈系统 Copyright © {:date('Y')} All Rights Reserved.
+        <i class="vs">|</i>
+        Panopath 定制后台
     </div>
 </div>
 </body>
