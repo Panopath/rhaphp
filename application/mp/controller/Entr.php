@@ -86,7 +86,15 @@ class Entr
                 switch (strtolower($msgData['Event'])) {
                     case 'subscribe'://关注
                         if (isset($msgData['Ticket'])) {
-                            if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {//通过生成场景二维码关注
+                            replyNews(array(
+                                "0"=>array(
+                                    'Title'=>'msg title',
+                                    'Description'=>'Description text',
+                                    'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
+                                    'Url'=>'https://file.panopath.com/panoVIP?ticket='.$msgData['Ticket']
+                                )
+                            ));
+                            /*if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {//通过生成场景二维码关注
                                 //如需要扩展其它，代码在这里开始
 
                                 if (!Db::name('qrcode_data')
@@ -110,7 +118,7 @@ class Entr
                                     }
                                 }
                                 $this->qrcode($result, $msgData);
-                            }
+                            }*/
                         }
                         $this->subscribe($msgData);
                         break;
@@ -118,11 +126,19 @@ class Entr
                         $this->subscribe($msgData, 'unsubscribe');
                         break;
                     case 'scan'://用户扫码已关注时的事件推送
-                        if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {
+                        /*if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {
                             //注意，没有关过的粉丝第一次扫码关注不走这里
                             //1:通过场景二维码关注
                             $this->qrcode($result, $msgData);
-                        }
+                        }*/
+                        replyNews(array(
+                            "0"=>array(
+                                'Title'=>'msg title',
+                                'Description'=>'Description text',
+                                'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
+                                'Url'=>'https://file.panopath.com/panoVIP'
+                            )
+                        ));
                         break;
                     case 'location':     // 上报地理位置事件 event_location
                         $this->special('event_location', $msgData);
