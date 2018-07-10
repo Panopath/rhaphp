@@ -85,13 +85,13 @@ class Entr
             case 'event'://事件消息
                 switch (strtolower($msgData['Event'])) {
                     case 'subscribe'://关注
-                        if (isset($msgData['Ticket'])) {
+                        if (isset($msgData['Ticket']) && isset($msgData['EventKey'])) {
                             replyNews(array(
                                 "0"=>array(
                                     'Title'=>'msg title',
                                     'Description'=>'Description text',
                                     'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
-                                    'Url'=>'https://file.panopath.com/panoVIP?activity=1&ticket=' . md5($msgData['Ticket'])
+                                    'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=' . $msgData['EventKey']
                                 )
                             ));
                             /*if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {//通过生成场景二维码关注
@@ -136,7 +136,7 @@ class Entr
                                 'Title'=>'msg title',
                                 'Description'=>'Description text',
                                 'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
-                                'Url'=>'https://file.panopath.com/panoVIP?activity=1'
+                                'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=old'
                             )
                         ));
                         break;
