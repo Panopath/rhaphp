@@ -91,7 +91,7 @@ class Entr
                                     'Title'=>'msg title',
                                     'Description'=>'Description text',
                                     'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
-                                    'Url'=>'https://file.panopath.com/panoVIP?ticket='.$msgData['Ticket']
+                                    'Url'=>'https://file.panopath.com/panoVIP?activity=1&ticket=' . md5($msgData['Ticket'])
                                 )
                             ));
                             /*if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {//通过生成场景二维码关注
@@ -136,7 +136,7 @@ class Entr
                                 'Title'=>'msg title',
                                 'Description'=>'Description text',
                                 'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
-                                'Url'=>'https://file.panopath.com/panoVIP'
+                                'Url'=>'https://file.panopath.com/panoVIP?activity=1'
                             )
                         ));
                         break;
