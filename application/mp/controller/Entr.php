@@ -88,8 +88,8 @@ class Entr
                         if (isset($msgData['Ticket']) && isset($msgData['EventKey'])) {
                             replyNews(array(
                                 "0"=>array(
-                                    'Title'=>'msg title',
-                                    'Description'=>'Description text',
+                                    'Title'=>'加入Pano VIP',
+                                    'Description'=>'欢迎关注Panopath过来人的服务号，点击助力好友加入Pano VIP',
                                     'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
                                     'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=' . $msgData['EventKey']
                                 )
@@ -133,8 +133,8 @@ class Entr
                         }*/
                         replyNews(array(
                             "0"=>array(
-                                'Title'=>'msg title',
-                                'Description'=>'Description text',
+                                'Title'=>'加入Pano VIP',
+                                'Description'=>'欢迎回到Panopath过来人服务号，点击加入Pano VIP',
                                 'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
                                 'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=old'
                             )
