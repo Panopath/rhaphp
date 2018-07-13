@@ -1112,6 +1112,7 @@ class Wechat
             return $xmldata;
         else
             echo $xmldata;
+            
     }
 
     /**

@@ -14,6 +14,7 @@ use app\common\model\MpFriends;
 use app\common\model\MpMsg;
 use app\common\model\Qrcode;
 use think\Db;
+use think\facade\Log;
 
 class Entr
 {
@@ -55,10 +56,14 @@ class Entr
         }
         session('mid',$mid);
         session('mp_options', $options);
+        Log::info('mp_options');
+        Log::info($options);
         $weObj = new \Wechat($options);
         $weObj->valid();
         $weObj->getRev();//获取微信服务器发来信息(不返回结果)，被动接口必须调用
         $msgData = $weObj->getRevData();//返回微信服务器发来的信息（数组）
+        Log::info('msgData');
+        Log::info($msgData);
         if($mpInfo['status']==0){
             replyText($mpInfo['desc']);exit;
         }
@@ -91,6 +96,7 @@ class Entr
                 switch (strtolower($msgData['Event'])) {
                     case 'subscribe'://关注
                         if (isset($msgData['Ticket']) && isset($msgData['EventKey'])) {
+                            Log::info('qr subscribe');
                             replyNews(array(
                                 "0"=>array(
                                     'Title'=>'加入Pano VIP',
@@ -136,6 +142,7 @@ class Entr
                             //1:通过场景二维码关注
                             $this->qrcode($result, $msgData);
                         }*/
+                        Log::info('qr scan');
                         replyNews(array(
                             "0"=>array(
                                 'Title'=>'加入Pano VIP',
