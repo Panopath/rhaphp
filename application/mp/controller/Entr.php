@@ -22,14 +22,18 @@ class Entr
 
     public function index($mid)
     {
+        Log::info('Enter index '.__FILE__.' '.__LINE__);
         if (empty($_GET['echostr']) && empty($_GET["signature"]) && empty ($_GET["nonce"])) {
+            Log::info('Exit in '.__FILE__.' '.__LINE__);
             exit('Access denied');
         }
         if (empty($mid) || !is_numeric($mid)) {
+            Log::info('Exit in '.__FILE__.' '.__LINE__);
             exit;
         }
         $this->mid = $mid;
         if (!$mpInfo = getMpInfo($mid)) {
+            Log::info('Exit in '.__FILE__.' '.__LINE__);
             exit();
         }
         $options = array(
@@ -46,6 +50,7 @@ class Entr
             }
             $weObj = new \Wechat($options);
             $weObj->valid();
+            Log::info('Exit in '.__FILE__.' '.__LINE__);
             exit;
         }
         session('mid',$mid);
@@ -90,7 +95,7 @@ class Entr
                                 "0"=>array(
                                     'Title'=>'加入Pano VIP',
                                     'Description'=>'欢迎关注Panopath过来人的服务号，点击助力好友加入Pano VIP',
-                                    'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
+                                    'PicUrl'=>'https://file.panopath.com/panoVIP/cover.png',
                                     'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=' . $msgData['EventKey']
                                 )
                             ));
@@ -135,7 +140,7 @@ class Entr
                             "0"=>array(
                                 'Title'=>'加入Pano VIP',
                                 'Description'=>'欢迎回到Panopath过来人服务号，点击加入Pano VIP',
-                                'PicUrl'=>'https://mp-admin.panopath.com/uploads/b5/55acab18cf877a3bfcb2de5f164220.jpg',
+                                'PicUrl'=>'https://file.panopath.com/panoVIP/cover.png',
                                 'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=old'
                             )
                         ));
@@ -161,7 +166,7 @@ class Entr
         }
         //终止执行
        // exit;
-
+       Log::info('Exit in '.__FILE__.' '.__LINE__);
     }
 
     /**
