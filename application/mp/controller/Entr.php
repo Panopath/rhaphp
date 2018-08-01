@@ -105,7 +105,8 @@ class Entr
                                     'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=' . $msgData['EventKey']
                                 )
                             ));*/
-                            $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey']);
+                            $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey'] .
+                                 "&openid=" . $msgData['FromUserName']);
                             replyNews(array(
                                 "0"=>json_decode($action)
                             ));
@@ -155,7 +156,8 @@ class Entr
                                 'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=old'
                             )
                         ));*/
-                        $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey']);
+                        $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey'] .
+                                 "&openid=" . $msgData['FromUserName']);
                         replyNews(array(
                             "0"=>json_decode($action)
                         ));
