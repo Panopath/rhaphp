@@ -97,13 +97,17 @@ class Entr
                     case 'subscribe'://关注
                         if (isset($msgData['Ticket']) && isset($msgData['EventKey'])) {
                             Log::info('qr subscribe');
-                            replyNews(array(
+                            /*replyNews(array(
                                 "0"=>array(
                                     'Title'=>'加入Pano VIP',
                                     'Description'=>'欢迎关注Panopath过来人的服务号，点击助力好友加入Pano VIP',
                                     'PicUrl'=>'https://file.panopath.com/panoVIP/cover.png',
                                     'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=' . $msgData['EventKey']
                                 )
+                            ));*/
+                            $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey']);
+                            replyNews(array(
+                                "0"=>json_decode($action)
                             ));
                             /*if ($result = Qrcode::get(['ticket' => $msgData['Ticket']])) {//通过生成场景二维码关注
                                 //如需要扩展其它，代码在这里开始
@@ -143,13 +147,17 @@ class Entr
                             $this->qrcode($result, $msgData);
                         }*/
                         Log::info('qr scan');
-                        replyNews(array(
+                        /*replyNews(array(
                             "0"=>array(
                                 'Title'=>'加入Pano VIP',
                                 'Description'=>'欢迎回到Panopath过来人服务号，点击加入Pano VIP',
                                 'PicUrl'=>'https://file.panopath.com/panoVIP/cover.png',
                                 'Url'=>'https://file.panopath.com/panoVIP?activity=1&key=old'
                             )
+                        ));*/
+                        $action = file_get_contents("http://localhost:3000/qr-get-action?key=" . $msgData['EventKey']);
+                        replyNews(array(
+                            "0"=>json_decode($action)
                         ));
                         break;
                     case 'location':     // 上报地理位置事件 event_location
